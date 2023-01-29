@@ -77,6 +77,7 @@ Future<void> main() async {
         const allowWhileIdle = true;
         const exact = true;
         const wakeup = true;
+        const useRTC = true;
         const rescheduleOnReboot = true;
 
         final result = await AndroidAlarmManager.oneShotAt(
@@ -87,6 +88,7 @@ Future<void> main() async {
           allowWhileIdle: allowWhileIdle,
           exact: exact,
           wakeup: wakeup,
+          useRTC: useRTC,
           rescheduleOnReboot: rescheduleOnReboot,
         );
 
@@ -102,6 +104,7 @@ Future<void> main() async {
         const allowWhileIdle = true;
         const exact = true;
         const wakeup = true;
+        const useRTC = true;
         const rescheduleOnReboot = true;
 
         final result = await AndroidAlarmManager.oneShot(
@@ -112,6 +115,7 @@ Future<void> main() async {
           allowWhileIdle: allowWhileIdle,
           exact: exact,
           wakeup: wakeup,
+          useRTC: useRTC,
           rescheduleOnReboot: rescheduleOnReboot,
         );
 
@@ -183,6 +187,7 @@ Future<void> main() async {
         const allowWhileIdle = true;
         const exact = true;
         const wakeup = true;
+        const useRTC = true;
         const rescheduleOnReboot = true;
         const period = Duration(seconds: 1);
 
@@ -193,6 +198,7 @@ Future<void> main() async {
           allowWhileIdle: allowWhileIdle,
           exact: exact,
           wakeup: wakeup,
+          useRTC: useRTC,
           rescheduleOnReboot: rescheduleOnReboot,
         );
 
@@ -208,6 +214,7 @@ Future<void> main() async {
         const allowWhileIdle = true;
         const exact = true;
         const wakeup = true;
+        const useRTC = true;
         const rescheduleOnReboot = true;
 
         AndroidAlarmManager.oneShot(
@@ -218,6 +225,7 @@ Future<void> main() async {
           allowWhileIdle: allowWhileIdle,
           exact: exact,
           wakeup: wakeup,
+          useRTC: useRTC,
           rescheduleOnReboot: rescheduleOnReboot,
         );
 

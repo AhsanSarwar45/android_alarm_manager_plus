@@ -147,10 +147,11 @@ public class AndroidAlarmManagerPlugin implements FlutterPlugin, MethodCallHandl
       boolean allowWhileIdle = json.getBoolean(2);
       boolean exact = json.getBoolean(3);
       boolean wakeup = json.getBoolean(4);
-      long startMillis = json.getLong(5);
-      boolean rescheduleOnReboot = json.getBoolean(6);
-      long callbackHandle = json.getLong(7);
-      JSONObject params = json.getJSONObject(8);
+      boolean useRTC = json.getBoolean(5);
+      long startMillis = json.getLong(6);
+      boolean rescheduleOnReboot = json.getBoolean(7);
+      long callbackHandle = json.getLong(8);
+      JSONObject params = json.getJSONObject(9);
 
       return new OneShotRequest(
           requestCode,
@@ -158,6 +159,7 @@ public class AndroidAlarmManagerPlugin implements FlutterPlugin, MethodCallHandl
           allowWhileIdle,
           exact,
           wakeup,
+          useRTC,
           startMillis,
           rescheduleOnReboot,
           callbackHandle,
@@ -169,6 +171,7 @@ public class AndroidAlarmManagerPlugin implements FlutterPlugin, MethodCallHandl
     final boolean allowWhileIdle;
     final boolean exact;
     final boolean wakeup;
+    final boolean useRTC;
     final long startMillis;
     final boolean rescheduleOnReboot;
     final long callbackHandle;
@@ -180,6 +183,7 @@ public class AndroidAlarmManagerPlugin implements FlutterPlugin, MethodCallHandl
         boolean allowWhileIdle,
         boolean exact,
         boolean wakeup,
+        boolean useRTC,
         long startMillis,
         boolean rescheduleOnReboot,
         long callbackHandle,
@@ -189,6 +193,7 @@ public class AndroidAlarmManagerPlugin implements FlutterPlugin, MethodCallHandl
       this.allowWhileIdle = allowWhileIdle;
       this.exact = exact;
       this.wakeup = wakeup;
+      this.useRTC = useRTC;
       this.startMillis = startMillis;
       this.rescheduleOnReboot = rescheduleOnReboot;
       this.callbackHandle = callbackHandle;
@@ -203,16 +208,18 @@ public class AndroidAlarmManagerPlugin implements FlutterPlugin, MethodCallHandl
       boolean allowWhileIdle = json.getBoolean(1);
       boolean exact = json.getBoolean(2);
       boolean wakeup = json.getBoolean(3);
-      long startMillis = json.getLong(4);
-      long intervalMillis = json.getLong(5);
-      boolean rescheduleOnReboot = json.getBoolean(6);
-      long callbackHandle = json.getLong(7);
-      JSONObject params = json.getJSONObject(8);
+      boolean useRTC = json.getBoolean(4);
+      long startMillis = json.getLong(5);
+      long intervalMillis = json.getLong(6);
+      boolean rescheduleOnReboot = json.getBoolean(7);
+      long callbackHandle = json.getLong(8);
+      JSONObject params = json.getJSONObject(9);
       return new PeriodicRequest(
           requestCode,
           allowWhileIdle,
           exact,
           wakeup,
+          useRTC,
           startMillis,
           intervalMillis,
           rescheduleOnReboot,
@@ -224,6 +231,7 @@ public class AndroidAlarmManagerPlugin implements FlutterPlugin, MethodCallHandl
     final boolean allowWhileIdle;
     final boolean exact;
     final boolean wakeup;
+    final boolean useRTC;
     final long startMillis;
     final long intervalMillis;
     final boolean rescheduleOnReboot;
@@ -235,6 +243,7 @@ public class AndroidAlarmManagerPlugin implements FlutterPlugin, MethodCallHandl
         boolean allowWhileIdle,
         boolean exact,
         boolean wakeup,
+        boolean useRTC,
         long startMillis,
         long intervalMillis,
         boolean rescheduleOnReboot,
@@ -244,6 +253,7 @@ public class AndroidAlarmManagerPlugin implements FlutterPlugin, MethodCallHandl
       this.allowWhileIdle = allowWhileIdle;
       this.exact = exact;
       this.wakeup = wakeup;
+      this.useRTC = useRTC;
       this.startMillis = startMillis;
       this.intervalMillis = intervalMillis;
       this.rescheduleOnReboot = rescheduleOnReboot;

@@ -101,6 +101,7 @@ public class AlarmService extends JobIntentService {
       boolean repeating,
       boolean exact,
       boolean wakeup,
+      boolean useRTC,
       long startMillis,
       long intervalMillis,
       boolean rescheduleOnReboot,
@@ -115,6 +116,7 @@ public class AlarmService extends JobIntentService {
           repeating,
           exact,
           wakeup,
+          useRTC,
           startMillis,
           intervalMillis,
           callbackHandle,
@@ -136,8 +138,16 @@ public class AlarmService extends JobIntentService {
 
     // Use the appropriate clock.
     int clock = AlarmManager.RTC;
-    if (wakeup) {
-      clock = AlarmManager.RTC_WAKEUP;
+    if (useRTC) {
+      if (wakeup) {
+        clock = AlarmManager.RTC_WAKEUP;
+      }
+    } else{
+      if (wakeup) {
+        clock = AlarmManager.ELAPSED_REALTIME_WAKEUP;
+      } else {
+        clock = AlarmManager.ELAPSED_REALTIME;
+      }
     }
 
     // Schedule the alarm.
@@ -191,6 +201,7 @@ public class AlarmService extends JobIntentService {
         repeating,
         request.exact,
         request.wakeup,
+        request.useRTC,
         request.startMillis,
         0,
         request.rescheduleOnReboot,
@@ -211,6 +222,7 @@ public class AlarmService extends JobIntentService {
         repeating,
         request.exact,
         request.wakeup,
+        request.useRTC,
         request.startMillis,
         request.intervalMillis,
         request.rescheduleOnReboot,
@@ -252,6 +264,7 @@ public class AlarmService extends JobIntentService {
       boolean repeating,
       boolean exact,
       boolean wakeup,
+      boolean useRTC,
       long startMillis,
       long intervalMillis,
       long callbackHandle,
@@ -262,6 +275,7 @@ public class AlarmService extends JobIntentService {
     alarmSettings.put("repeating", repeating);
     alarmSettings.put("exact", exact);
     alarmSettings.put("wakeup", wakeup);
+    alarmSettings.put("useRTC", useRTC);
     alarmSettings.put("startMillis", startMillis);
     alarmSettings.put("intervalMillis", intervalMillis);
     alarmSettings.put("callbackHandle", callbackHandle);
@@ -327,6 +341,7 @@ public class AlarmService extends JobIntentService {
           boolean repeating = alarm.getBoolean("repeating");
           boolean exact = alarm.getBoolean("exact");
           boolean wakeup = alarm.getBoolean("wakeup");
+          boolean useRTC = alarm.getBoolean("useRTC");
           long startMillis = alarm.getLong("startMillis");
           long intervalMillis = alarm.getLong("intervalMillis");
           long callbackHandle = alarm.getLong("callbackHandle");
@@ -339,6 +354,7 @@ public class AlarmService extends JobIntentService {
               repeating,
               exact,
               wakeup,
+              useRTC,
               startMillis,
               intervalMillis,
               false,

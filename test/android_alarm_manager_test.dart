@@ -80,6 +80,7 @@ void main() {
       const allowWhileIdle = true;
       const exact = true;
       const wakeup = true;
+      const useRTC = true;
       const rescheduleOnReboot = true;
       const params = <String, dynamic>{'title': 'myAlarm'};
 
@@ -90,10 +91,11 @@ void main() {
         expect(call.arguments[2], allowWhileIdle);
         expect(call.arguments[3], exact);
         expect(call.arguments[4], wakeup);
-        expect(call.arguments[5], alarm.millisecondsSinceEpoch);
-        expect(call.arguments[6], rescheduleOnReboot);
-        expect(call.arguments[7], rawHandle);
-        expect(call.arguments[8], params);
+        expect(call.arguments[5], useRTC);
+        expect(call.arguments[6], alarm.millisecondsSinceEpoch);
+        expect(call.arguments[7], rescheduleOnReboot);
+        expect(call.arguments[8], rawHandle);
+        expect(call.arguments[9], params);
         return true;
       });
 
@@ -105,6 +107,7 @@ void main() {
         allowWhileIdle: allowWhileIdle,
         exact: exact,
         wakeup: wakeup,
+        useRTC: useRTC,
         rescheduleOnReboot: rescheduleOnReboot,
         params: params,
       );
@@ -127,6 +130,7 @@ void main() {
     const allowWhileIdle = true;
     const exact = true;
     const wakeup = true;
+    const useRTC = true;
     const rescheduleOnReboot = true;
     const params = <String, dynamic>{'title': 'myAlarm'};
     testChannel.setMockMethodCallHandler((MethodCall call) async {
@@ -136,13 +140,14 @@ void main() {
       expect(call.arguments[2], allowWhileIdle);
       expect(call.arguments[3], exact);
       expect(call.arguments[4], wakeup);
+      expect(call.arguments[5], useRTC);
       expect(
-        call.arguments[5],
+        call.arguments[6],
         now.millisecondsSinceEpoch + alarm.inMilliseconds,
       );
-      expect(call.arguments[6], rescheduleOnReboot);
-      expect(call.arguments[7], rawHandle);
-      expect(call.arguments[8], params);
+      expect(call.arguments[7], rescheduleOnReboot);
+      expect(call.arguments[8], rawHandle);
+      expect(call.arguments[9], params);
       return true;
     });
 
@@ -154,6 +159,7 @@ void main() {
       allowWhileIdle: allowWhileIdle,
       exact: exact,
       wakeup: wakeup,
+      useRTC: useRTC,
       rescheduleOnReboot: rescheduleOnReboot,
       params: params,
     );
@@ -197,6 +203,7 @@ void main() {
       const allowWhileIdle = true;
       const exact = true;
       const wakeup = true;
+      const useRTC = true;
       const rescheduleOnReboot = true;
       const period = Duration(seconds: 1);
       const params = <String, dynamic>{'title': 'myAlarm'};
@@ -207,14 +214,15 @@ void main() {
         expect(call.arguments[1], allowWhileIdle);
         expect(call.arguments[2], exact);
         expect(call.arguments[3], wakeup);
+        expect(call.arguments[4], useRTC);
         expect(
-          call.arguments[4],
+          call.arguments[5],
           (now.millisecondsSinceEpoch + period.inMilliseconds),
         );
-        expect(call.arguments[5], period.inMilliseconds);
-        expect(call.arguments[6], rescheduleOnReboot);
-        expect(call.arguments[7], rawHandle);
-        expect(call.arguments[8], params);
+        expect(call.arguments[6], period.inMilliseconds);
+        expect(call.arguments[7], rescheduleOnReboot);
+        expect(call.arguments[8], rawHandle);
+        expect(call.arguments[9], params);
         return true;
       });
 
@@ -267,18 +275,18 @@ void main() {
         expect(call.method, 'Alarm.periodic');
         expect(call.arguments[0], id);
         expect(
-          call.arguments[4],
+          call.arguments[5],
           (now.millisecondsSinceEpoch + period.inMilliseconds),
         );
-        expect(call.arguments[5], period.inMilliseconds);
-        expect(call.arguments[7], rawHandle);
-        expect(call.arguments[8], isA<Map>());
+        expect(call.arguments[6], period.inMilliseconds);
+        expect(call.arguments[8], rawHandle);
+        expect(call.arguments[9], isA<Map>());
         expect(
-          JsonParsableClass.fromJson(call.arguments[8]['obj']),
+          JsonParsableClass.fromJson(call.arguments[9]['obj']),
           isA<JsonParsableClass>(),
         );
         expect(
-          JsonParsableClass.fromJson(call.arguments[8]['obj']),
+          JsonParsableClass.fromJson(call.arguments[9]['obj']),
           const JsonParsableClass('MyName'),
         );
         return true;

@@ -165,6 +165,7 @@ class AndroidAlarmManager {
     bool allowWhileIdle = false,
     bool exact = false,
     bool wakeup = false,
+    bool useRTC = true,
     bool rescheduleOnReboot = false,
     Map<String, dynamic> params = const {},
   }) =>
@@ -176,6 +177,7 @@ class AndroidAlarmManager {
         allowWhileIdle: allowWhileIdle,
         exact: exact,
         wakeup: wakeup,
+        useRTC: useRTC,
         rescheduleOnReboot: rescheduleOnReboot,
         params: params,
       );
@@ -235,6 +237,7 @@ class AndroidAlarmManager {
     bool allowWhileIdle = false,
     bool exact = false,
     bool wakeup = false,
+    bool useRTC = true,
     bool rescheduleOnReboot = false,
     Map<String, dynamic> params = const {},
   }) async {
@@ -255,6 +258,7 @@ class AndroidAlarmManager {
       allowWhileIdle,
       exact,
       wakeup,
+      useRTC,
       startMillis,
       rescheduleOnReboot,
       handle.toRawHandle(),
@@ -318,6 +322,7 @@ class AndroidAlarmManager {
     bool allowWhileIdle = false,
     bool exact = false,
     bool wakeup = false,
+    bool useRTC = true,
     bool rescheduleOnReboot = false,
     Map<String, dynamic> params = const {},
   }) async {
@@ -340,6 +345,7 @@ class AndroidAlarmManager {
       allowWhileIdle,
       exact,
       wakeup,
+      useRTC,
       first,
       period,
       rescheduleOnReboot,
