@@ -36,14 +36,14 @@ void main() {
     expect(initialized, isTrue);
   });
 
-  group('${AndroidAlarmManager.oneShotAt}', () {
+  group('${AndroidAlarmManager.oneShotAtTime}', () {
     test('validates input', () async {
       final validTime = DateTime.utc(1993);
       const validId = 1;
 
       // Callback should take a single int param.
       await expectLater(
-          () => AndroidAlarmManager.oneShotAt(
+          () => AndroidAlarmManager.oneShotAtTime(
                 validTime,
                 validId,
                 invalidCallback,
@@ -52,7 +52,7 @@ void main() {
 
       // Callback should take int as first and Map as second param.
       await expectLater(
-          () => AndroidAlarmManager.oneShotAt(
+          () => AndroidAlarmManager.oneShotAtTime(
                 validTime,
                 validId,
                 invalidCallbackWithParams,
@@ -61,7 +61,7 @@ void main() {
 
       // ID should be less than 32 bits.
       await expectLater(
-          () => AndroidAlarmManager.oneShotAt(
+          () => AndroidAlarmManager.oneShotAtTime(
                 validTime,
                 2147483648,
                 validCallback,
@@ -80,7 +80,6 @@ void main() {
       const allowWhileIdle = true;
       const exact = true;
       const wakeup = true;
-      const useRTC = true;
       const rescheduleOnReboot = true;
       const params = <String, dynamic>{'title': 'myAlarm'};
 
@@ -91,7 +90,7 @@ void main() {
         expect(call.arguments[2], allowWhileIdle);
         expect(call.arguments[3], exact);
         expect(call.arguments[4], wakeup);
-        expect(call.arguments[5], useRTC);
+        expect(call.arguments[5], true);
         expect(call.arguments[6], alarm.millisecondsSinceEpoch);
         expect(call.arguments[7], rescheduleOnReboot);
         expect(call.arguments[8], rawHandle);
@@ -99,7 +98,7 @@ void main() {
         return true;
       });
 
-      final result = await AndroidAlarmManager.oneShotAt(
+      final result = await AndroidAlarmManager.oneShotAtTime(
         alarm,
         id,
         validCallback,
@@ -107,7 +106,6 @@ void main() {
         allowWhileIdle: allowWhileIdle,
         exact: exact,
         wakeup: wakeup,
-        useRTC: useRTC,
         rescheduleOnReboot: rescheduleOnReboot,
         params: params,
       );
@@ -116,7 +114,8 @@ void main() {
     });
   });
 
-  test('${AndroidAlarmManager.oneShot} calls through to oneShotAt', () async {
+  test('${AndroidAlarmManager.oneShotAfterDelay} calls through to oneShotAt',
+      () async {
     final now = DateTime(1993);
     const rawHandle = 4;
     AndroidAlarmManager.setTestOverrides(
@@ -151,7 +150,7 @@ void main() {
       return true;
     });
 
-    final result = await AndroidAlarmManager.oneShot(
+    final result = await AndroidAlarmManager.oneShotAfterDelay(
       alarm,
       id,
       validCallback,

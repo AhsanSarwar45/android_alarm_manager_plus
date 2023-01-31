@@ -157,7 +157,7 @@ class AndroidAlarmManager {
   /// an UnsupportedError will be thrown.
   /// Returns a [Future] that resolves to `true` on success and `false` on
   /// failure.
-  static Future<bool> oneShot(
+  static Future<bool> oneShotAfterDelay(
     Duration delay,
     int id,
     Function callback, {
@@ -169,8 +169,10 @@ class AndroidAlarmManager {
     bool rescheduleOnReboot = false,
     Map<String, dynamic> params = const {},
   }) =>
-      oneShotAt(
-        _now().add(delay),
+      oneShotAtMilliseconds(
+        useRTC
+            ? _now().add(delay).millisecondsSinceEpoch
+            : delay.inMilliseconds,
         id,
         callback,
         alarmClock: alarmClock,
@@ -229,8 +231,32 @@ class AndroidAlarmManager {
   /// an UnsupportedError will be thrown.
   /// Returns a [Future] that resolves to `true` on success and `false` on
   /// failure.
-  static Future<bool> oneShotAt(
+  static Future<bool> oneShotAtTime(
     DateTime time,
+    int id,
+    Function callback, {
+    bool alarmClock = false,
+    bool allowWhileIdle = false,
+    bool exact = false,
+    bool wakeup = false,
+    bool rescheduleOnReboot = false,
+    Map<String, dynamic> params = const {},
+  }) async =>
+      oneShotAtMilliseconds(
+        time.millisecondsSinceEpoch,
+        id,
+        callback,
+        alarmClock: alarmClock,
+        allowWhileIdle: allowWhileIdle,
+        exact: exact,
+        wakeup: wakeup,
+        useRTC: true,
+        rescheduleOnReboot: rescheduleOnReboot,
+        params: params,
+      );
+
+  static Future<bool> oneShotAtMilliseconds(
+    int startMilliseconds,
     int id,
     Function callback, {
     bool alarmClock = false,
@@ -247,7 +273,6 @@ class AndroidAlarmManager {
         callback is Function(int, Map<String, dynamic>));
     assert(id.bitLength < 32);
     checkIfSerializable(params);
-    final startMillis = time.millisecondsSinceEpoch;
     final handle = _getCallbackHandle(callback);
     if (handle == null) {
       return false;
@@ -259,7 +284,7 @@ class AndroidAlarmManager {
       exact,
       wakeup,
       useRTC,
-      startMillis,
+      startMilliseconds,
       rescheduleOnReboot,
       handle.toRawHandle(),
       params,

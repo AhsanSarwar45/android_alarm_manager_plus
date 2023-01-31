@@ -51,7 +51,7 @@ Future<void> main() async {
 
         // Callback should take a single int param.
         await expectLater(
-          () => AndroidAlarmManager.oneShotAt(
+          () => AndroidAlarmManager.oneShotAtTime(
             validTime,
             validId,
             invalidCallback,
@@ -61,7 +61,7 @@ Future<void> main() async {
 
         // ID should be less than 32 bits.
         await expectLater(
-          () => AndroidAlarmManager.oneShotAt(
+          () => AndroidAlarmManager.oneShotAtTime(
             validTime,
             2147483648,
             validCallback,
@@ -77,10 +77,9 @@ Future<void> main() async {
         const allowWhileIdle = true;
         const exact = true;
         const wakeup = true;
-        const useRTC = true;
         const rescheduleOnReboot = true;
 
-        final result = await AndroidAlarmManager.oneShotAt(
+        final result = await AndroidAlarmManager.oneShotAtTime(
           alarm,
           id,
           AlarmHelpers.alarmTest,
@@ -88,7 +87,6 @@ Future<void> main() async {
           allowWhileIdle: allowWhileIdle,
           exact: exact,
           wakeup: wakeup,
-          useRTC: useRTC,
           rescheduleOnReboot: rescheduleOnReboot,
         );
 
@@ -107,7 +105,7 @@ Future<void> main() async {
         const useRTC = true;
         const rescheduleOnReboot = true;
 
-        final result = await AndroidAlarmManager.oneShot(
+        final result = await AndroidAlarmManager.oneShotAfterDelay(
           delay,
           id,
           AlarmHelpers.alarmTest,
@@ -217,7 +215,7 @@ Future<void> main() async {
         const useRTC = true;
         const rescheduleOnReboot = true;
 
-        AndroidAlarmManager.oneShot(
+        AndroidAlarmManager.oneShotAfterDelay(
           delay,
           id,
           AlarmHelpers.alarmTest,
